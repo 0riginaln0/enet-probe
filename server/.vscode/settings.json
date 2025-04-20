@@ -1,0 +1,7 @@
+{
+    "Lua.diagnostics.globals": [],
+    "Lua.workspace.library": [
+        "${addons}/lovr/module/library"
+    ],
+    "Lua.workspace.checkThirdParty": false
+}
