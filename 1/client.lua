@@ -35,7 +35,7 @@ function lovr.load()
     -- host:service returns nil if no events occured. We need to check for this.
     if not new_event then
         print("Failed to receive message from the server.")
-        os.exit(stdlib.EXIT_FAILURE)
+        lovr.event.quit(stdlib.EXIT_FAILURE)
     end
     -- When new_event is not nil, we handle it
     if new_event.type == "connect" then
@@ -43,7 +43,7 @@ function lovr.load()
     else
         server_peer:reset()
         print("Connection to " .. server_address .. " failed.")
-        os.exit(stdlib.EXIT_SUCCESS)
+        lovr.event.quit(stdlib.EXIT_SUCCESS)
     end
 
     -- Getting updates from the server while game is running
