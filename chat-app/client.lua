@@ -1,7 +1,7 @@
 UI2D = require 'lib.ui2d.ui2d'
 lovr.mouse = require 'lib.lovr-mouse'
 local enet = require 'enet'
-local stdlib = require 'stdlib'
+local stdlib = require 'chat-app.lib.stdlib'
 
 
 local server_address = 'localhost:6750'

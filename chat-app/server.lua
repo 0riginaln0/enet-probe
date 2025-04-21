@@ -1,5 +1,5 @@
 local enet = require 'enet'
-local stdlib = require 'stdlib'
+local stdlib = require 'chat-app.lib.stdlib'
 
 
 local server_address = 'localhost:6750'
