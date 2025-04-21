@@ -36,6 +36,7 @@ function lovr.load()
     if not new_event then
         print("Failed to receive message from the server.")
         lovr.event.quit(stdlib.EXIT_FAILURE)
+        goto continue
     end
     -- When new_event is not nil, we handle it
     if new_event.type == "connect" then
@@ -57,6 +58,7 @@ function lovr.load()
     end
     print("Timed out")
     lovr.event.quit()
+    ::continue::
 end
 
 function lovr.update(dt)
