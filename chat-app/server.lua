@@ -1,12 +1,16 @@
 local enet = require 'enet'
-local stdlib = require 'chat-app.lib.stdlib'
+local stdlib = require 'lib.stdlib'
 
 
 local server_address = 'localhost:6750'
 local server_host = nil
 
+local function server_print(...)
+    print("SERVER: ", ...)
+end
+
 function lovr.load()
-    print("Starting as server...")
+    server_print("Starting as server...")
     server_host = enet.host_create(
         server_address, -- bind_address
         32,             -- peer_count: set maximum connections (default 64)
@@ -18,18 +22,18 @@ end
 
 function lovr.update(dt)
     -- Getting updates from the server while game is running
-    local new_event = server_host:service(1000)
+    local new_event = server_host:service(0)
     if new_event then
         if new_event.type == "connect" then
-            print("A new client connected from ", new_event.peer)
+            server_print("A new client connected from ", new_event.peer)
         elseif new_event.type == "receive" then
             local data = new_event.data
             local channel = new_event.channel
             local peer = new_event.peer
-            print("A packet of length " .. tostring(#data) .. "containing " .. data ..
+            server_print("A packet of length " .. tostring(#data) .. "containing " .. data ..
                 "was received from ", peer, "on channel " .. channel)
         elseif new_event.type == "disconnect" then
-            print(new_event.peer, "disconnected")
+            server_print(new_event.peer, "disconnected")
         end
     end
 end
@@ -41,7 +45,7 @@ function lovr.keyreleased(key)
 end
 
 function lovr.quit()
-    print("cleaning up")
+    server_print("cleaning up")
     -- A truthy value can be returned from this callback to abort quitting. But we want to quit
     server_host:destroy()
     return false

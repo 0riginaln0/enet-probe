@@ -21,6 +21,12 @@ if mode == MODE.SERVER then
    print("Run in server mode")
    require 'server'
 elseif mode == MODE.CLIENT then
+   local threadCode = [[
+      os.execute("lovrc . --server")
+   ]]
+   local thread = lovr.thread.newThread(threadCode)
+   thread:start()
+   lovr.timer.sleep(3) -- wait for the server to start working
    print("Run in client mode")
    require 'client'
 end
